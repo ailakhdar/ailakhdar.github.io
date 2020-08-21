@@ -1,0 +1,62 @@
+*{
+    padding : 0 ; 
+    margin : 0 ;
+    text-decoration : none  ;
+    box-sizing: border-box;
+    font-family: 'Bebas Neue', cursive;
+    
+   
+}
+body {
+    background-color:#282828 
+}
+#profile-img {
+    height: 120px;
+    width: auto;
+    
+    
+}
+li {
+    list-style: none;
+}
+.description {
+    margin : 5px 5px ;
+}
+#sm:hover {
+    color :rgb(57, 57, 207) ; 
+}
+#name {
+    width: 100%;
+    margin: auto;
+}
+.carousel .item {
+    height: 200px;
+  }
+  
+  .item img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-height: 150px;
+  }
+  .content {
+      height: 900px
+  }
+
+  #sm-li:hover {
+      color: #01669A;
+  }
+  #sm-fa:hover {
+    color:#38569A;
+}
+    #sm-gh:hover {
+        color: #1A1E22;
+    }
+   
+    #reset-this-parent {
+        all: initial;
+      }
+      
+      #reset-this-parent * {
+        all: unset;
+      }
