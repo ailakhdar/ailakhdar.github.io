@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,14 +24,12 @@
     body {
       background: #0a0e17;
       color: #f1f5f9;
-      /* Default to Cairo for Arabic support immediately */
       font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
       min-height: 100vh;
     }
 
-    /* Styles from intro.vue */
     #app {
       --bg-primary: #0a0e17;
       --bg-secondary: #111827;
@@ -755,12 +753,12 @@
       <header class="nav">
         <div class="nav__brand">wasla <span class="nav__ar" :style="{ fontFamily: `'${currentFont}', sans-serif` }">| وصلة</span></div>
         <nav class="nav__links">
-          <a href="#architecture">{{ t(`Architecture`, `البنية`) }}</a>
-          <a href="#features">{{ t(`Features`, `المميزات`) }}</a>
-          <a href="#how-it-works">{{ t(`How It Works`, `كيف يعمل`) }}</a>
-          <a href="#try-me">{{ t(`Try Me`, `جربني`) }}</a>
+          <a href="#architecture">{{ t('Architecture', 'البنية') }}</a>
+          <a href="#features">{{ t('Features', 'المميزات') }}</a>
+          <a href="#how-it-works">{{ t('How It Works', 'كيف يعمل') }}</a>
+          <a href="#try-me">{{ t('Try Me', 'جربني') }}</a>
           <button class="nav__lang" @click="toggleLang">{{ lang === 'en' ? 'AR' : 'EN' }}</button>
-          <a href="/login" class="nav__cta">{{ t(`Sign In`, `تسجيل الدخول`) }}</a>
+          <a href="/login" class="nav__cta">{{ t('Sign In', 'تسجيل الدخول') }}</a>
         </nav>
       </header>
 
@@ -768,34 +766,34 @@
       <section class="hero">
         <div class="hero__badge">
           <span class="hero__dot"></span>
-          {{ t(`AI-Powered Chatbot Platform`, `منصة شات بوت بالذكاء الاصطناعي`) }}
+          {{ t('AI-Powered Chatbot Platform', 'منصة شات بوت بالذكاء الاصطناعي') }}
         </div>
         <h1 class="hero__title">
-          {{ t(`One Bot.`, `بوت واحد.`) }}<br>
-          <span class="hero__gradient">{{ t(`Every Platform.`, `كل المنصات.`) }}</span>
+          {{ t('One Bot.', 'بوت واحد.') }}<br>
+          <span class="hero__gradient">{{ t('Every Platform.', 'كل المنصات.') }}</span>
         </h1>
         <p class="hero__subtitle">
           {{ t(
-            `Build your AI assistant once and deploy it across Telegram, WhatsApp, and Messenger. Wasla connects your business to customers wherever they are.`,
-            `ابنِ مساعدك الذكي مرة واحدة وانشره على تيليجرام وواتساب وماسنجر. وصلة تربط عملك بعملائك أينما كانوا.`
+            'Build your AI assistant once and deploy it across Telegram, WhatsApp, and Messenger. Wasla connects your business to customers wherever they are.',
+            'ابنِ مساعدك الذكي مرة واحدة وانشره على تيليجرام وواتساب وماسنجر. وصلة تربط عملك بعملائك أينما كانوا.'
           ) }}
         </p>
         <div class="hero__ctas">
           <a href="#try-me" class="btn btn--primary">
-            {{ t(`Try It Now`, `جرب الآن`) }}
+            {{ t('Try It Now', 'جرب الآن') }}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </a>
-          <a href="#architecture" class="btn btn--secondary">{{ t(`See How`, `شاهد كيف`) }}</a>
+          <a href="#architecture" class="btn btn--secondary">{{ t('See How', 'شاهد كيف') }}</a>
         </div>
       </section>
 
       <!-- Circuit Board Architecture -->
       <section id="architecture" class="circuit-section">
-        <span class="section-label">{{ t(`Architecture`, `البنية`) }}</span>
-        <h2 class="section-title">{{ t(`Connected Intelligence`, `ذكاء مترابط`) }}</h2>
+        <span class="section-label">{{ t('Architecture', 'البنية') }}</span>
+        <h2 class="section-title">{{ t('Connected Intelligence', 'ذكاء مترابط') }}</h2>
         <p class="section-subtitle">{{ t(
-          `One AI brain powers all your platforms simultaneously, with data flowing in real-time.`,
-          `عقل ذكاء اصطناعي واحد يشغّل جميع منصاتك في وقت واحد، مع تدفق البيانات لحظياً.`
+          'One AI brain powers all your platforms simultaneously, with data flowing in real-time.',
+          'عقل ذكاء اصطناعي واحد يشغّل جميع منصاتك في وقت واحد، مع تدفق البيانات لحظياً.'
         ) }}</p>
 
         <div class="cpu-container">
@@ -876,143 +874,110 @@
               <path d="M10 14h4" stroke-linecap="round" />
             </svg>
             <div class="cpu-core__label">WASLA AI</div>
-            <div class="cpu-core__sub">{{ t(`Core Engine`, `المحرك الأساسي`) }}</div>
+            <div class="cpu-core__sub">{{ t('Core Engine', 'المحرك الأساسي') }}</div>
           </div>
 
           <!-- Platform Nodes -->
           <div class="platform-node node--top">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
-            <span class="platform-node__name">{{ t(`Telegram`, `تيليجرام`) }}</span>
-            <span class="platform-node__status">{{ t(`Connected`, `متصل`) }}</span>
+            <span class="platform-node__name">{{ t('Telegram', 'تيليجرام') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
           </div>
 
           <div class="platform-node node--right">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-            <span class="platform-node__name">{{ t(`WhatsApp`, `واتساب`) }}</span>
-            <span class="platform-node__status">{{ t(`Connected`, `متصل`) }}</span>
+            <span class="platform-node__name">{{ t('WhatsApp', 'واتساب') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
           </div>
 
           <div class="platform-node node--bottom">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="#0084ff"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8.2l3.131 3.259L19.752 8.2l-6.561 6.763z" /></svg>
-            <span class="platform-node__name">{{ t(`Messenger`, `ماسنجر`) }}</span>
-            <span class="platform-node__status">{{ t(`Connected`, `متصل`) }}</span>
+            <span class="platform-node__name">{{ t('Messenger', 'ماسنجر') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
           </div>
 
           <div class="platform-node node--left">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-            <span class="platform-node__name">{{ t(`Web Chat`, `محادثة الويب`) }}</span>
-            <span class="platform-node__status">{{ t(`Connected`, `متصل`) }}</span>
+            <span class="platform-node__name">{{ t('Web Chat', 'محادثة الويب') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
           </div>
         </div>
       </section>
 
       <!-- Features -->
       <section id="features" class="features-section">
-        <span class="section-label">{{ t(`Features`, `المميزات`) }}</span>
-        <h2 class="section-title">{{ t(`Everything You Need`, `كل ما تحتاجه`) }}</h2>
-        <p class="section-subtitle">{{ t(
-          `Powerful tools to build, customize, and scale your AI assistant.`,
-          `أدوات قوية لبناء وتخصيص وتوسيع مساعدك الذكي.`
-        ) }}</p>
+        <span class="section-label">{{ t('Features', 'المميزات') }}</span>
+        <h2 class="section-title">{{ t('Everything You Need', 'كل ما تحتاجه') }}</h2>
+        <p class="section-subtitle">{{ t('Powerful tools to build, customize, and scale your AI assistant.', 'أدوات قوية لبناء وتخصيص وتوسيع مساعدك الذكي.') }}</p>
 
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-card__icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
             </div>
-            <h3>{{ t(`Custom Personalities`, `شخصيات مخصصة`) }}</h3>
-            <p>{{ t(
-              `Define how your bot talks, what it knows, and how it behaves. Create different personas for different use cases.`,
-              `حدد كيف يتحدث بوتك، وماذا يعرف، وكيف يتصرف. أنشئ شخصيات مختلفة لاستخدامات مختلفة.`
-            ) }}</p>
+            <h3>{{ t('Custom Personalities', 'شخصيات مخصصة') }}</h3>
+            <p>{{ t('Define how your bot talks, what it knows, and how it behaves. Create different personas for different use cases.', 'حدد كيف يتحدث بوتك، وماذا يعرف، وكيف يتصرف. أنشئ شخصيات مختلفة لاستخدامات مختلفة.') }}</p>
           </div>
           <div class="feature-card">
             <div class="feature-card__icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
             </div>
-            <h3>{{ t(`Knowledge Base`, `قاعدة المعرفة`) }}</h3>
-            <p>{{ t(
-              `Upload your content, FAQs, and product info. Your bot answers with accurate, sourced responses.`,
-              `ارفع محتواك والأسئلة الشائعة ومعلومات المنتج. بوتك يجيب بدقة من مصادرك.`
-            ) }}</p>
+            <h3>{{ t('Knowledge Base', 'قاعدة المعرفة') }}</h3>
+            <p>{{ t('Upload your content, FAQs, and product info. Your bot answers with accurate, sourced responses.', 'ارفع محتواك والأسئلة الشائعة ومعلومات المنتج. بوتك يجيب بدقة من مصادرك.') }}</p>
           </div>
           <div class="feature-card">
             <div class="feature-card__icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
             </div>
-            <h3>{{ t(`Smart Notifications`, `إشعارات ذكية`) }}</h3>
-            <p>{{ t(
-              `Get alerted when customers need human help. Keyword detection and AI-powered intent analysis.`,
-              `تنبيهات فورية عندما يحتاج العملاء لمساعدة بشرية. كشف الكلمات المفتاحية وتحليل النوايا بالذكاء الاصطناعي.`
-            ) }}</p>
+            <h3>{{ t('Smart Notifications', 'إشعارات ذكية') }}</h3>
+            <p>{{ t('Get alerted when customers need human help. Keyword detection and AI-powered intent analysis.', 'تنبيهات فورية عندما يحتاج العملاء لمساعدة بشرية. كشف الكلمات المفتاحية وتحليل النوايا بالذكاء الاصطناعي.') }}</p>
           </div>
           <div class="feature-card">
             <div class="feature-card__icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>
             </div>
-            <h3>{{ t(`Analytics Dashboard`, `لوحة التحليلات`) }}</h3>
-            <p>{{ t(
-              `Track conversations, response quality, and customer satisfaction across all platforms in one place.`,
-              `تتبع المحادثات وجودة الردود ورضا العملاء عبر جميع المنصات في مكان واحد.`
-            ) }}</p>
+            <h3>{{ t('Analytics Dashboard', 'لوحة التحليلات') }}</h3>
+            <p>{{ t('Track conversations, response quality, and customer satisfaction across all platforms in one place.', 'تتبع المحادثات وجودة الردود ورضا العملاء عبر جميع المنصات في مكان واحد.') }}</p>
           </div>
           <div class="feature-card">
             <div class="feature-card__icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
             </div>
-            <h3>{{ t(`Multi-Platform`, `متعدد المنصات`) }}</h3>
-            <p>{{ t(
-              `Connect Telegram, WhatsApp, and Messenger. One bot, one brain, multiple channels.`,
-              `اربط تيليجرام وواتساب وماسنجر. بوت واحد، عقل واحد، قنوات متعددة.`
-            ) }}</p>
+            <h3>{{ t('Multi-Platform', 'متعدد المنصات') }}</h3>
+            <p>{{ t('Connect Telegram, WhatsApp, and Messenger. One bot, one brain, multiple channels.', 'اربط تيليجرام وواتساب وماسنجر. بوت واحد، عقل واحد، قنوات متعددة.') }}</p>
           </div>
           <div class="feature-card">
             <div class="feature-card__icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
             </div>
-            <h3>{{ t(`Instant Setup`, `إعداد فوري`) }}</h3>
-            <p>{{ t(
-              `Go live in minutes. No coding required. Just connect your platform and start chatting.`,
-              `ابدأ في دقائق. لا حاجة للبرمجة. فقط اربط منصتك وابدأ المحادثة.`
-            ) }}</p>
+            <h3>{{ t('Instant Setup', 'إعداد فوري') }}</h3>
+            <p>{{ t('Go live in minutes. No coding required. Just connect your platform and start chatting.', 'ابدأ في دقائق. لا حاجة للبرمجة. فقط اربط منصتك وابدأ المحادثة.') }}</p>
           </div>
         </div>
       </section>
 
       <!-- How It Works -->
       <section id="how-it-works" class="steps-section">
-        <span class="section-label">{{ t(`Simple`, `بسيط`) }}</span>
-        <h2 class="section-title">{{ t(`How It Works`, `كيف يعمل`) }}</h2>
-        <p class="section-subtitle">{{ t(
-          `Three steps to your AI-powered customer assistant.`,
-          `ثلاث خطوات لمساعدك الذكي لخدمة العملاء.`
-        ) }}</p>
+        <span class="section-label">{{ t('Simple', 'بسيط') }}</span>
+        <h2 class="section-title">{{ t('How It Works', 'كيف يعمل') }}</h2>
+        <p class="section-subtitle">{{ t('Three steps to your AI-powered customer assistant.', 'ثلاث خطوات لمساعدك الذكي لخدمة العملاء.') }}</p>
 
         <div class="steps">
           <div class="steps__line"></div>
           <div class="step">
             <div class="step__num">1</div>
-            <h3>{{ t(`Create Your Bot`, `أنشئ بوتك`) }}</h3>
-            <p>{{ t(
-              `Define your bot's personality, knowledge base, and behavior rules from the dashboard.`,
-              `حدد شخصية بوتك وقاعدة معرفته وقواعد سلوكه من لوحة التحكم.`
-            ) }}</p>
+            <h3>{{ t('Create Your Bot', 'أنشئ بوتك') }}</h3>
+            <p>{{ t('Define your bot personality, knowledge base, and behavior rules from the dashboard.', 'حدد شخصية بوتك وقاعدة معرفته وقواعد سلوكه من لوحة التحكم.') }}</p>
           </div>
           <div class="step">
             <div class="step__num">2</div>
-            <h3>{{ t(`Connect Platforms`, `اربط المنصات`) }}</h3>
-            <p>{{ t(
-              `Link your Telegram, WhatsApp, or Messenger accounts with a simple token setup.`,
-              `اربط حساباتك على تيليجرام أو واتساب أو ماسنجر بإعداد بسيط.`
-            ) }}</p>
+            <h3>{{ t('Connect Platforms', 'اربط المنصات') }}</h3>
+            <p>{{ t('Link your Telegram, WhatsApp, or Messenger accounts with a simple token setup.', 'اربط حساباتك على تيليجرام أو واتساب أو ماسنجر بإعداد بسيط.') }}</p>
           </div>
           <div class="step">
             <div class="step__num">3</div>
-            <h3>{{ t(`Go Live`, `انطلق`) }}</h3>
-            <p>{{ t(
-              `Your AI assistant starts handling conversations automatically across all connected platforms.`,
-              `مساعدك الذكي يبدأ بإدارة المحادثات تلقائياً عبر جميع المنصات المتصلة.`
-            ) }}</p>
+            <h3>{{ t('Go Live', 'انطلق') }}</h3>
+            <p>{{ t('Your AI assistant starts handling conversations automatically across all connected platforms.', 'مساعدك الذكي يبدأ بإدارة المحادثات تلقائياً عبر جميع المنصات المتصلة.') }}</p>
           </div>
         </div>
       </section>
@@ -1021,19 +986,16 @@
       <section id="try-me" class="try-section">
         <div class="try-card">
           <div class="try-card__glow"></div>
-          <h2>{{ t(`Try Wasla Now`, `جرب وصلة الآن`) }}</h2>
-          <p>{{ t(
-            `Experience the power of an AI assistant. Send a message and see it in action.`,
-            `اختبر قوة المساعد الذكي. أرسل رسالة وشاهده يعمل.`
-          ) }}</p>
+          <h2>{{ t('Try Wasla Now', 'جرب وصلة الآن') }}</h2>
+          <p>{{ t('Experience the power of an AI assistant. Send a message and see it in action.', 'اختبر قوة المساعد الذكي. أرسل رسالة وشاهده يعمل.') }}</p>
           <div class="try-card__channels">
             <a href="https://wa.me/213556678288" target="_blank" rel="noopener" class="channel-btn channel-btn--wa">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-              {{ t(`WhatsApp`, `واتساب`) }}
+              {{ t('WhatsApp', 'واتساب') }}
             </a>
             <a href="https://t.me/intelgx_info_bot" target="_blank" rel="noopener" class="channel-btn channel-btn--tg">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
-              {{ t(`Telegram`, `تيليجرام`) }}
+              {{ t('Telegram', 'تيليجرام') }}
             </a>
           </div>
         </div>
@@ -1042,16 +1004,13 @@
       <!-- Footer -->
       <footer class="intro-footer">
         <div class="intro-footer__brand">wasla</div>
-        <p>{{ t(
-          `2026 Wasla. Connect your business to every conversation.`,
-          `2026 وصلة. اربط عملك بكل محادثة.`
-        ) }}</p>
+        <p>{{ t('2026 Wasla. Connect your business to every conversation.', '2026 وصلة. اربط عملك بكل محادثة.') }}</p>
       </footer>
     </div>
   </div>
 
   <script>
-    const { createApp, ref, onMounted } = Vue
+    const { createApp, ref } = Vue
 
     createApp({
       setup() {
@@ -1066,7 +1025,6 @@
           { name: 'Rubik', family: 'Rubik' },
         ]
 
-        const currentFontIndex = ref(0)
         const currentFont = ref(arabicFonts[0].family)
 
         function toggleLang() {
