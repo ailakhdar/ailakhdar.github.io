@@ -1,287 +1,1090 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/custom.css">
-    <link rel="stylesheet" href="/assets/css/all.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wasla - AI-Powered Chatbot Platform</title>
+  
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&family=Tajawal:wght@400;500;700&family=Readex+Pro:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap">
+  
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  
+  <style>
+    /* CSS Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <title>AIBOUT lakhdar Portfolio</title>
+    body {
+      background: #0a0e17;
+      color: #f1f5f9;
+      /* Default to Cairo for Arabic support immediately */
+      font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Styles from intro.vue */
+    #app {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: #1a2332;
+      --accent: #3b82f6;
+      --accent-glow: #60a5fa;
+      --accent-secondary: #8b5cf6;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --green: #10b981;
+    }
+
+    .intro {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* ── BG ── */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .bg-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-glow--1 {
+      top: -200px;
+      right: -200px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent 70%);
+    }
+
+    .bg-glow--2 {
+      bottom: -200px;
+      left: -200px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.06), transparent 70%);
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 14, 23, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__brand {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav__ar {
+      font-weight: 400;
+      -webkit-text-fill-color: var(--text-secondary);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav__links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav__links a:hover { color: var(--text-primary); }
+
+    .nav__lang {
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav__lang:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .nav__cta {
+      padding: 0.5rem 1.2rem !important;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff !important;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav__cta:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .hero__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse-dot 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero__title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .intro--rtl .hero__title { letter-spacing: 0; }
+
+    .hero__gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary), #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero__subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero__ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      box-shadow: 0 4px 24px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.45);
+    }
+
+    .btn--secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn--secondary:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .intro--rtl .btn svg { transform: scaleX(-1); }
+
+    /* ── SECTION COMMON ── */
+    .section-label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .intro--rtl .section-title { letter-spacing: 0; }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 550px;
+      margin: 0 auto 4rem;
+    }
+
+    /* ── CIRCUIT SECTION ── */
+    .circuit-section {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 2rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cpu-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 520px;
+    }
+
+    .circuit-traces {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .trace {
+      position: absolute;
+      background: var(--border);
+      opacity: 0.3;
+    }
+
+    .trace--h { height: 1px; }
+    .trace--v { width: 1px; }
+    .trace--1 { top: 25%; left: 0; width: 12%; }
+    .trace--2 { top: 75%; right: 0; width: 12%; }
+    .trace--3 { left: 20%; top: 0; height: 15%; }
+    .trace--4 { right: 20%; bottom: 0; height: 15%; }
+    .trace--5 { top: 40%; left: 0; width: 8%; }
+    .trace--6 { bottom: 35%; right: 0; width: 8%; }
+
+    .trace-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .trace-dot--1 { top: 25%; left: 12%; }
+    .trace-dot--2 { top: 75%; right: 12%; }
+    .trace-dot--3 { left: 20%; top: 15%; }
+    .trace-dot--4 { right: 20%; bottom: 15%; }
+
+    .connections-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .conn-line {
+      stroke: var(--border);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .conn-line--dim { opacity: 0.12; }
+
+    .conn-glow {
+      stroke: var(--accent);
+      stroke-width: 2;
+      fill: none;
+      opacity: 0.4;
+      filter: blur(2px);
+    }
+
+    .bubble {
+      r: 4;
+      filter: drop-shadow(0 0 6px currentColor);
+    }
+
+    .bubble--blue { fill: #60a5fa; }
+    .bubble--purple { fill: #8b5cf6; }
+    .bubble--pink { fill: #ec4899; }
+
+    .bubble--fwd {
+      offset-rotate: 0deg;
+      animation: flow 3s linear infinite;
+    }
+
+    .bubble--rev {
+      offset-rotate: 0deg;
+      animation: flow 3s linear infinite reverse;
+    }
+
+    @keyframes flow {
+      0%   { offset-distance: 0%; opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+
+    .cpu-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      background: var(--bg-card);
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow:
+        0 0 40px rgba(59, 130, 246, 0.15),
+        inset 0 0 30px rgba(59, 130, 246, 0.05);
+    }
+
+    .cpu-core::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 24px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .cpu-core__icon { margin-bottom: 0.3rem; }
+
+    .cpu-core__label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-glow);
+      letter-spacing: 1px;
+    }
+
+    .cpu-core__sub {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .platform-node {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.3s;
+      gap: 4px;
+    }
+
+    .platform-node:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+    }
+
+    .platform-node__name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .platform-node__status {
+      font-size: 0.65rem;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .platform-node__status::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .node--top { top: 30px; left: 50%; transform: translateX(-50%); }
+    .node--right { top: 50%; right: 30px; transform: translateY(-50%); }
+    .node--bottom { bottom: 30px; left: 50%; transform: translateX(-50%); }
+    .node--left { top: 50%; left: 30px; transform: translateY(-50%); }
+
+    /* ── FEATURES ── */
+    .features-section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+    }
+
+    .feature-card__icon { margin-bottom: 1rem; }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── STEPS ── */
+    .steps-section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+    }
+
+    .steps {
+      display: flex;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .steps__line {
+      position: absolute;
+      top: 28px;
+      left: 80px;
+      right: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary), #ec4899);
+      opacity: 0.3;
+    }
+
+    .intro--rtl .steps__line {
+      background: linear-gradient(270deg, var(--accent), var(--accent-secondary), #ec4899);
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+    }
+
+    .step__num {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 2px solid var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent-glow);
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── TRY ME ── */
+    .try-section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .try-card {
+      max-width: 700px;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .try-card__glow {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
+      animation: rotate-glow 20s linear infinite;
+    }
+
+    @keyframes rotate-glow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .try-card h2 {
+      position: relative;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .try-card p {
+      position: relative;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .try-card__channels {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .channel-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #fff;
+      transition: all 0.25s;
+    }
+
+    .channel-btn--wa { background: #25d366; }
+
+    .channel-btn--wa:hover {
+      background: #1ebe57;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+    }
+
+    .channel-btn--tg { background: #0088cc; }
+
+    .channel-btn--tg:hover {
+      background: #006da3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 136, 204, 0.3);
+    }
+
+    /* ── FOOTER ── */
+    .intro-footer {
+      position: relative;
+      z-index: 1;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .intro-footer__brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .intro-footer p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { flex-direction: column; }
+      .steps__line { display: none; }
+      .cpu-container { height: 450px; }
+      .cpu-core { width: 120px; height: 120px; }
+      .cpu-core__label { font-size: 0.75rem; }
+      .platform-node { width: 90px; height: 90px; }
+      .platform-node__name { font-size: 0.7rem; }
+      .platform-node__status { font-size: 0.6rem; }
+      .node--right { right: 10px; }
+      .node--left { left: 10px; }
+      .nav__links a:not(.nav__cta) { display: none; }
+      .nav__lang { display: none; }
+      .try-card { padding: 2.5rem 1.5rem; }
+    }
+
+    [v-cloak] { display: none; }
+  </style>
 </head>
-
 <body>
-    <div class="container mt-5">
-        <!-- main container  -->
-        <div class="row">
-            <!-- side menu -->
-            <div class="col-3 card mr-2 pt-3">
+  <div id="app" v-cloak>
+    <div
+      class="intro"
+      :class="{ 'intro--rtl': isAr }"
+      :dir="isAr ? 'rtl' : 'ltr'"
+      :style="isAr ? { fontFamily: `'${currentFont}', sans-serif` } : {}"
+    >
+      <!-- Background -->
+      <div class="bg-grid"></div>
+      <div class="bg-glow bg-glow--1"></div>
+      <div class="bg-glow bg-glow--2"></div>
 
-                <div class="img">
-                    <center class="mb-5">
-                        <div id="name">
-                            <h2>AIBOUT lakhdar</h2>
-                        </div>
-                        <img src="/assets/img/me.jpg" alt="" id="profile-img" class="rounded-circle">
-                    </center>
-                    <div class="description mr-3">
-                        Hi , i"m aibout lakhdar computer engineer and frontend develepor welcome to my portfolio .
-                    </div>
-                    <div id="personal" class="mt-5">
-                        <ul>
-                            <li>
-                                28 years OLD From algeria
-                            </li>
-                            <li class="pl-1">
+      <!-- Nav -->
+      <header class="nav">
+        <div class="nav__brand">wasla <span class="nav__ar" :style="{ fontFamily: `'${currentFont}', sans-serif` }">| وصلة</span></div>
+        <nav class="nav__links">
+          <a href="#architecture">{{ t('Architecture', 'البنية') }}</a>
+          <a href="#features">{{ t('Features', 'المميزات') }}</a>
+          <a href="#how-it-works">{{ t('How It Works', 'كيف يعمل') }}</a>
+          <a href="#try-me">{{ t('Try Me', 'جربني') }}</a>
+          <button class="nav__lang" @click="toggleLang">{{ lang === 'en' ? 'AR' : 'EN' }}</button>
+          <a href="/login" class="nav__cta">{{ t('Sign In', 'تسجيل الدخول') }}</a>
+        </nav>
+      </header>
 
-                                languages
-
-                                <ul class="pl-5">
-                                    <li>arabic &ThickSpace;
-                                        <i class="fas fa-globe" style="color: rgb(6, 114, 15);"></i>
-                                    </li>
-                                    <li>french &ThinSpace;
-                                        <i class="fas fa-globe" style="color: rgb(3, 59, 245);"></i>
-                                    </li>
-                                    <li>english&ThinSpace;
-                                        <i class="fas fa-globe" style="color: rgb(216, 71, 71);"></i>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <ul class="d-flex justify-content-around">
-                        <li><a id="sm-fa" href="https://www.facebook.com/ailakhdar/"><i
-                                    class="fab fa-facebook fa-2x"></i></a></li>
-                        <li><a id="sm-li" href="https://www.linkedin.com/in/lakhdaraibout/"><i
-                                    class="fab fa-linkedin fa-2x"></i></a></li>
-                        <li><a id="sm-gh" href="https://github.com/ailakhdar"><i class="fab fa-github fa-2x"></i></a>
-                        </li>
-                    </ul>
-                    <div class="text-center"><a href="mailto:mr_aibout@engineer.com" target="_blank"
-                            class="btn btn-info px-5 mt-5"><i class="fas fa-paper-plane  mr-2"></i>Hire me </a></div>
-                </div>
-            </div>
-            <!-- portfolio content  -->
-            <div class="content col card pt-3 overflow-auto " style="background :rgb(207, 207, 207)">
-                <div class="container ">
-                    <div class="about pb-5 ">
-                        <h2>
-                            computer engineer & front end develepor
-                        </h2>
-                        <div class="card">
-                            <div class="card-body">
-                                <p>Over 6 years of experiece as computer engineer one year plus experience in frontend
-                                    develepement very good knowledge about networking fast learner , and passion about
-                                    new
-                                    technologies.</p>
-                                <h6>other information can be found on my resume </h6>
-                                <a href="https://drive.google.com/file/d/16Q4eSoMEVGXUqu0fJBkrm8mmED_tgtTw/view?usp=sharing"
-                                    class="btn btn-dark px-5"><i class="fas fa-file-pdf  mr-2"
-                                        style="color: #BC1D07;"></i>resume</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2>
-                        skills
-                    </h2>
-                    <div class="card">
-                        <div class="skills ml-3 card-body">
-                            <h3>OS</h3>
-                            <div class="row pl-3">
-                                <div class="col">
-                                    <i class="fab fa-windows fa-2x" style="color: #0871C4;"></i>
-                                    <h5>windows 7/8/10</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fab fa-ubuntu fa-2x" style="color: #DD4814;"></i>
-                                    <h5>ubuntu</h5>
-                                </div>
-                            </div>
-                            <h3>software</h3>
-                            <div class="row pl-3">
-                                <div class="col">
-                                    <i class="fab fa-adobe fa-2x" style="color: #366EB3;"></i>
-                                    <h5>photoshop</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fab fa-microsoft fa-2x" style="color: #E63A01"></i>
-                                    <h5>office</h5>
-                                </div>
-                            </div>
-                            <h3>web</h3>
-                            <div class="row pl-3">
-                                <div class="col">
-                                    <i class="fab fa-js-square fa-2x" style="color: #F0D91D;"></i>
-                                    <h5>Vanila JS</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fab fa-node fa-2x" style="color: #8CC03D;"></i>
-                                    <h5>node js &amp; express</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fab fa-git fa-2x" style="color: #E94E32;"></i>
-                                    <i class="fab fa-npm fa-2x ml-2" style="color: #CB3837;"></i>
-
-                                    <h5>git &amp; npm</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fab fa-html5 fa-2x" style="color: #DF4B25;"></i>
-                                    <i class="fab fa-css3-alt fa-2x" style="color:#3596CF ;"></i>
-                                    <h5>html &amp; css &amp; EJS</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fas fa-database fa-2x" style="color:#3aa644;"></i>
-                                    <h5>mongodb &amp; indexeddb</h5>
-                                </div>
-                                <div class="col">
-                                    <i class="fab fa-react fa-2x" style="color:#a3f0ff ;"></i>
-                                    <h5>electron JS </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h2 class="showcasing mt-5">Project's SHOWCASING</h2>
-                    <div class="row">
-                        <div class="col ">
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/POS-electronjs/1.jpg"
-                                            alt="First slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/POS-electronjs/2.jpg"
-                                            alt="Second slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/POS-electronjs/3.jpg"
-                                            alt="Third slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/POS-electronjs/4.jpg"
-                                            alt="4th slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/POS-electronjs/5.jpg"
-                                            alt="5th slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/POS-electronjs/6.jpg"
-                                            alt="6th slide">
-                                    </div>
-
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                    data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                    data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/SUITS/1.JPG"
-                                            alt="First slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/SUITS/2.JPG"
-                                            alt="Second slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/SUITS/3.JPG"
-                                            alt="Third slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="/assets/img/showcasing/SUITS/4.JPG"
-                                            alt="frouth slide">
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                    data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                    data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-sm-6">
-                            <div class="card border-white">
-                                <div class="card-body">
-                                    <h5 class="card-title">Electron POS Store </h5>
-                                    <p class="card-text">built with electron js , jquery , express , bootstrap & basic
-                                        encryption and user permissions for database nedb(light version for mongodb)
-                                        for more details check this project on GH
-                                    </p>
-                                    <a href="https://github.com/ailakhdar/Store-POS" class="btn btn-dark">POS store on
-                                        github</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="card border-white">
-                                <div class="card-body">
-                                    <h5 class="card-title">SUITS e-commerce website </h5>
-                                    <p class="card-text">used on this project express handling api's , passport for user
-                                        authentication & bcrypt for crypting user passwords , nedb & localstorage for
-                                        handling costumers & shopping cart </p>
-                                    <a href="https://github.com/ailakhdar/Suit-E-commerce" class="btn btn-dark">SUITS on
-                                        github</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-5 mb-5">
-                        <div class="col text-center">
-                            <a href="https://github.com/ailakhdar" class="btn btn-info"> you can also chek other
-                                projects on my github page
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Hero (compact) -->
+      <section class="hero">
+        <div class="hero__badge">
+          <span class="hero__dot"></span>
+          {{ t('AI-Powered Chatbot Platform', 'منصة شات بوت بالذكاء الاصطناعي') }}
         </div>
-        <!-- Footer -->
-        <footer class="page-footer font-small blue">
+        <h1 class="hero__title">
+          {{ t('One Bot.', 'بوت واحد.') }}<br>
+          <span class="hero__gradient">{{ t('Every Platform.', 'كل المنصات.') }}</span>
+        </h1>
+        <p class="hero__subtitle">
+          {{ t(
+            'Build your AI assistant once and deploy it across Telegram, WhatsApp, and Messenger. Wasla connects your business to customers wherever they are.',
+            'ابنِ مساعدك الذكي مرة واحدة وانشره على تيليجرام وواتساب وماسنجر. وصلة تربط عملك بعملائك أينما كانوا.'
+          ) }}
+        </p>
+        <div class="hero__ctas">
+          <a href="#try-me" class="btn btn--primary">
+            {{ t('Try It Now', 'جرب الآن') }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </a>
+          <a href="#architecture" class="btn btn--secondary">{{ t('See How', 'شاهد كيف') }}</a>
+        </div>
+      </section>
 
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3 " style="color: white;">© 2020 Copyright:
-                <a href="https://ailakhdar.github.io/"> ailakhdar.github.io</a>
+      <!-- Circuit Board Architecture -->
+      <section id="architecture" class="circuit-section">
+        <span class="section-label">{{ t('Architecture', 'البنية') }}</span>
+        <h2 class="section-title">{{ t('Connected Intelligence', 'ذكاء مترابط') }}</h2>
+        <p class="section-subtitle">{{ t(
+          'One AI brain powers all your platforms simultaneously, with data flowing in real-time.',
+          'عقل ذكاء اصطناعي واحد يشغّل جميع منصاتك في وقت واحد، مع تدفق البيانات لحظياً.'
+        ) }}</p>
+
+        <div class="cpu-container">
+          <!-- Decorative traces -->
+          <div class="circuit-traces">
+            <div class="trace trace--h trace--1"></div>
+            <div class="trace trace--h trace--2"></div>
+            <div class="trace trace--v trace--3"></div>
+            <div class="trace trace--v trace--4"></div>
+            <div class="trace trace--h trace--5"></div>
+            <div class="trace trace--h trace--6"></div>
+            <div class="trace-dot trace-dot--1"></div>
+            <div class="trace-dot trace-dot--2"></div>
+            <div class="trace-dot trace-dot--3"></div>
+            <div class="trace-dot trace-dot--4"></div>
+          </div>
+
+          <!-- SVG Connections -->
+          <svg class="connections-svg" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid meet">
+            <!-- Connection lines -->
+            <path d="M450,180 L450,90" class="conn-line"></path>
+            <path d="M450,180 L450,90" class="conn-glow"></path>
+            <path d="M530,260 L810,260" class="conn-line"></path>
+            <path d="M530,260 L810,260" class="conn-glow"></path>
+            <path d="M450,340 L450,430" class="conn-line"></path>
+            <path d="M450,340 L450,430" class="conn-glow"></path>
+            <path d="M370,260 L90,260" class="conn-line"></path>
+            <path d="M370,260 L90,260" class="conn-glow"></path>
+
+            <!-- Diagonal traces -->
+            <path d="M390,200 L180,90" class="conn-line conn-line--dim"></path>
+            <path d="M510,320 L720,430" class="conn-line conn-line--dim"></path>
+            <path d="M510,200 L720,90" class="conn-line conn-line--dim"></path>
+            <path d="M390,320 L180,430" class="conn-line conn-line--dim"></path>
+
+            <!-- Outward bubbles -->
+            <circle class="bubble bubble--blue bubble--fwd" style="offset-path:path('M450,180 L450,90');animation-duration:2.5s">
+              <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+            <circle class="bubble bubble--purple bubble--fwd" style="offset-path:path('M450,180 L450,90');animation-duration:2.5s;animation-delay:1.2s">
+              <animate attributeName="r" values="2;4;2" dur="2.5s" repeatCount="indefinite" />
+            </circle>
+
+            <circle class="bubble bubble--blue bubble--fwd" style="offset-path:path('M530,260 L810,260');animation-duration:3s">
+              <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite" />
+            </circle>
+            <circle class="bubble bubble--pink bubble--fwd" style="offset-path:path('M530,260 L810,260');animation-duration:3s;animation-delay:1.5s">
+              <animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite" />
+            </circle>
+
+            <circle class="bubble bubble--purple bubble--fwd" style="offset-path:path('M450,340 L450,430');animation-duration:2.8s">
+              <animate attributeName="r" values="3;5;3" dur="2.8s" repeatCount="indefinite" />
+            </circle>
+            <circle class="bubble bubble--blue bubble--fwd" style="offset-path:path('M450,340 L450,430');animation-duration:2.8s;animation-delay:1.4s">
+              <animate attributeName="r" values="2;4;2" dur="2.8s" repeatCount="indefinite" />
+            </circle>
+
+            <circle class="bubble bubble--pink bubble--fwd" style="offset-path:path('M370,260 L90,260');animation-duration:3.2s">
+              <animate attributeName="r" values="3;5;3" dur="3.2s" repeatCount="indefinite" />
+            </circle>
+            <circle class="bubble bubble--blue bubble--fwd" style="offset-path:path('M370,260 L90,260');animation-duration:3.2s;animation-delay:1.6s">
+              <animate attributeName="r" values="2;4;2" dur="3.2s" repeatCount="indefinite" />
+            </circle>
+
+            <!-- Junction dots -->
+            <circle cx="450" cy="180" r="3" fill="#3b82f6" opacity="0.5" />
+            <circle cx="450" cy="340" r="3" fill="#3b82f6" opacity="0.5" />
+            <circle cx="530" cy="260" r="3" fill="#3b82f6" opacity="0.5" />
+            <circle cx="370" cy="260" r="3" fill="#3b82f6" opacity="0.5" />
+          </svg>
+
+          <!-- Central CPU -->
+          <div class="cpu-core">
+            <svg class="cpu-core__icon" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5" width="40" height="40">
+              <path d="M12 2a4 4 0 0 0-4 4v1H6a2 2 0 0 0-2 2v2h2v2H4v2a2 2 0 0 0 2 2h2v1a4 4 0 0 0 8 0v-1h2a2 2 0 0 0 2-2v-2h-2v-2h2V9a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z" />
+              <circle cx="10" cy="10" r="1" fill="#60a5fa" />
+              <circle cx="14" cy="10" r="1" fill="#60a5fa" />
+              <path d="M10 14h4" stroke-linecap="round" />
+            </svg>
+            <div class="cpu-core__label">WASLA AI</div>
+            <div class="cpu-core__sub">{{ t('Core Engine', 'المحرك الأساسي') }}</div>
+          </div>
+
+          <!-- Platform Nodes -->
+          <div class="platform-node node--top">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0088cc"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
+            <span class="platform-node__name">{{ t('Telegram', 'تيليجرام') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
+          </div>
+
+          <div class="platform-node node--right">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+            <span class="platform-node__name">{{ t('WhatsApp', 'واتساب') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
+          </div>
+
+          <div class="platform-node node--bottom">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0084ff"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8.2l3.131 3.259L19.752 8.2l-6.561 6.763z" /></svg>
+            <span class="platform-node__name">{{ t('Messenger', 'ماسنجر') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
+          </div>
+
+          <div class="platform-node node--left">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+            <span class="platform-node__name">{{ t('Web Chat', 'محادثة الويب') }}</span>
+            <span class="platform-node__status">{{ t('Connected', 'متصل') }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section id="features" class="features-section">
+        <span class="section-label">{{ t('Features', 'المميزات') }}</span>
+        <h2 class="section-title">{{ t('Everything You Need', 'كل ما تحتاجه') }}</h2>
+        <p class="section-subtitle">{{ t(
+          'Powerful tools to build, customize, and scale your AI assistant.',
+          'أدوات قوية لبناء وتخصيص وتوسيع مساعدك الذكي.'
+        ) }}</p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
             </div>
-            <!-- Copyright -->
+            <h3>{{ t('Custom Personalities', 'شخصيات مخصصة') }}</h3>
+            <p>{{ t(
+              'Define how your bot talks, what it knows, and how it behaves. Create different personas for different use cases.',
+              'حدد كيف يتحدث بوتك، وماذا يعرف، وكيف يتصرف. أنشئ شخصيات مختلفة لاستخدامات مختلفة.'
+            ) }}</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+            </div>
+            <h3>{{ t('Knowledge Base', 'قاعدة المعرفة') }}</h3>
+            <p>{{ t(
+              'Upload your content, FAQs, and product info. Your bot answers with accurate, sourced responses.',
+              'ارفع محتواك والأسئلة الشائعة ومعلومات المنتج. بوتك يجيب بدقة من مصادرك.'
+            ) }}</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
+            </div>
+            <h3>{{ t('Smart Notifications', 'إشعارات ذكية') }}</h3>
+            <p>{{ t(
+              'Get alerted when customers need human help. Keyword detection and AI-powered intent analysis.',
+              'تنبيهات فورية عندما يحتاج العملاء لمساعدة بشرية. كشف الكلمات المفتاحية وتحليل النوايا بالذكاء الاصطناعي.'
+            ) }}</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6" /></svg>
+            </div>
+            <h3>{{ t('Analytics Dashboard', 'لوحة التحليلات') }}</h3>
+            <p>{{ t(
+              'Track conversations, response quality, and customer satisfaction across all platforms in one place.',
+              'تتبع المحادثات وجودة الردود ورضا العملاء عبر جميع المنصات في مكان واحد.'
+            ) }}</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+            </div>
+            <h3>{{ t('Multi-Platform', 'متعدد المنصات') }}</h3>
+            <p>{{ t(
+              'Connect Telegram, WhatsApp, and Messenger. One bot, one brain, multiple channels.',
+              'اربط تيليجرام وواتساب وماسنجر. بوت واحد، عقل واحد، قنوات متعددة.'
+            ) }}</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+            </div>
+            <h3>{{ t('Instant Setup', 'إعداد فوري') }}</h3>
+            <p>{{ t(
+              'Go live in minutes. No coding required. Just connect your platform and start chatting.',
+              'ابدأ في دقائق. لا حاجة للبرمجة. فقط اربط منصتك وابدأ المحادثة.'
+            ) }}</p>
+          </div>
+        </div>
+      </section>
 
-        </footer>
-        <!-- Footer -->
+      <!-- How It Works -->
+      <section id="how-it-works" class="steps-section">
+        <span class="section-label">{{ t('Simple', 'بسيط') }}</span>
+        <h2 class="section-title">{{ t('How It Works', 'كيف يعمل') }}</h2>
+        <p class="section-subtitle">{{ t(
+          'Three steps to your AI-powered customer assistant.',
+          'ثلاث خطوات لمساعدك الذكي لخدمة العملاء.'
+        ) }}</p>
+
+        <div class="steps">
+          <div class="steps__line"></div>
+          <div class="step">
+            <div class="step__num">1</div>
+            <h3>{{ t('Create Your Bot', 'أنشئ بوتك') }}</h3>
+            <p>{{ t(
+              'Define your bot's personality, knowledge base, and behavior rules from the dashboard.',
+              'حدد شخصية بوتك وقاعدة معرفته وقواعد سلوكه من لوحة التحكم.'
+            ) }}</p>
+          </div>
+          <div class="step">
+            <div class="step__num">2</div>
+            <h3>{{ t('Connect Platforms', 'اربط المنصات') }}</h3>
+            <p>{{ t(
+              'Link your Telegram, WhatsApp, or Messenger accounts with a simple token setup.',
+              'اربط حساباتك على تيليجرام أو واتساب أو ماسنجر بإعداد بسيط.'
+            ) }}</p>
+          </div>
+          <div class="step">
+            <div class="step__num">3</div>
+            <h3>{{ t('Go Live', 'انطلق') }}</h3>
+            <p>{{ t(
+              'Your AI assistant starts handling conversations automatically across all connected platforms.',
+              'مساعدك الذكي يبدأ بإدارة المحادثات تلقائياً عبر جميع المنصات المتصلة.'
+            ) }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Try Me CTA -->
+      <section id="try-me" class="try-section">
+        <div class="try-card">
+          <div class="try-card__glow"></div>
+          <h2>{{ t('Try Wasla Now', 'جرب وصلة الآن') }}</h2>
+          <p>{{ t(
+            'Experience the power of an AI assistant. Send a message and see it in action.',
+            'اختبر قوة المساعد الذكي. أرسل رسالة وشاهده يعمل.'
+          ) }}</p>
+          <div class="try-card__channels">
+            <a href="https://wa.me/213556678288" target="_blank" rel="noopener" class="channel-btn channel-btn--wa">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+              {{ t('WhatsApp', 'واتساب') }}
+            </a>
+            <a href="https://t.me/intelgx_info_bot" target="_blank" rel="noopener" class="channel-btn channel-btn--tg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
+              {{ t('Telegram', 'تيليجرام') }}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="intro-footer">
+        <div class="intro-footer__brand">wasla</div>
+        <p>{{ t(
+          '2026 Wasla. Connect your business to every conversation.',
+          '2026 وصلة. اربط عملك بكل محادثة.'
+        ) }}</p>
+      </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-    <script src="/assets/js/all.js"></script>
-</body>
+  </div>
 
+  <script>
+    const { createApp, ref, onMounted } = Vue
+
+    createApp({
+      setup() {
+        const lang = ref('ar')
+        const isAr = ref(true)
+
+        const arabicFonts = [
+          { name: 'Cairo', family: 'Cairo' },
+          { name: 'Noto Kufi Arabic', family: 'Noto Kufi Arabic' },
+          { name: 'Tajawal', family: 'Tajawal' },
+          { name: 'Readex Pro', family: 'Readex Pro' },
+          { name: 'Rubik', family: 'Rubik' },
+        ]
+
+        const currentFontIndex = ref(0)
+        const currentFont = ref(arabicFonts[0].family)
+
+        function toggleLang() {
+          lang.value = lang.value === 'en' ? 'ar' : 'en'
+          isAr.value = lang.value === 'ar'
+        }
+
+        const t = (en, ar) => lang.value === 'ar' ? ar : en
+
+        return {
+          lang,
+          isAr,
+          currentFont,
+          toggleLang,
+          t
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
 </html>
